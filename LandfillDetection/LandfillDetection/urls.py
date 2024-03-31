@@ -24,13 +24,35 @@ from django.views import defaults as default_views
 from django.conf.urls.static import static
 from django.conf import settings
 from users.urls import urlpatterns as user_urls
+from Landfill_management.urls import urlpatterns as landfill_urls
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Authentication and User Management API",
+      default_version='v1',
+      description="API description",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@yourapi.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include(user_urls)),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('landfills/', include(landfill_urls)),
+
 ]
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if get_settings().USE_PLACEHOLDERS:
-    urlpatterns += [
-        path("_pictures/", include("pictures.urls")),
-    ]

@@ -38,6 +38,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['last_name'] = user.last_name
         token['email'] = user.email
         token['id'] = user.id
+        token['picture'] = user.picture.url if user.picture else None
         return token
 
 # Custom view to obtain token pairs

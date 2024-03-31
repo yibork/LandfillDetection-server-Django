@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-6er^@-jlsqj@bruxyur^&od1__me7tl@kb6i+(ms-hjyx_ik1p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -41,9 +42,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'LandfillDetection',
-        'corsheaders',
+    'corsheaders',
     'users',
-    'pictures',
+    'Landfill_management',
+    'drf_yasg',
+
     
 ]
 ALLOWED_HOSTS=['*']
@@ -63,8 +66,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'users.middleware.eureka_middleware.EurekaRegistrationMiddleware',
 
 ]
 REST_FRAMEWORK = {
@@ -124,6 +127,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'LandfillDetection.wsgi.application'
+import os
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Database
