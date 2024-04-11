@@ -13,6 +13,28 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import permissions
+
+class IsAdminUser(permissions.BasePermission):
+    """
+    Custom permission to only allow administrators to create a user.
+    """
+    
+    def has_permission(self, request, view):
+        return request.user and request.user.is_staff
+
+class AdministratorCreateUserView(APIView):
+   # permission_classes = [IsAdminUser]  # Use the custom permission
+
+    def post(self, request, format=None):
+        # Only administrators can access this view
+        print(request.user)
+        print(request.data)
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response({'message': 'User Created', 'user_id': user.id}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class VerifyTokenView(APIView):
     permission_classes = (AllowAny,)

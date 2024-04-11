@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-6er^@-jlsqj@bruxyur^&od1__me7tl@kb6i+(ms-hjyx_ik1p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -45,16 +43,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'Landfill_management',
-    'drf_yasg',
-
-    
+    'drf_yasg',   
 ]
-ALLOWED_HOSTS=['*']
-# Not secure for production, only use for unrestricted development
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ALLOW_CREDENTIALS = True
 
 
 AUTH_USER_MODEL = 'users.User'  
@@ -66,8 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'users.middleware.eureka_middleware.EurekaRegistrationMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  
 
 ]
 REST_FRAMEWORK = {
