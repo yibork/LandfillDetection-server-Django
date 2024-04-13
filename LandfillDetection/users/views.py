@@ -10,31 +10,20 @@ from django.utils.timezone import now
 from rest_framework_simplejwt.serializers import TokenVerifySerializer
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 
 class IsAdminUser(permissions.BasePermission):
     """
-    Custom permission to only allow administrators to create a user.
+    Allows access only to admin users.
     """
-    
     def has_permission(self, request, view):
-        return request.user and request.user.is_staff
-
-class AdministratorCreateUserView(APIView):
-   # permission_classes = [IsAdminUser]  # Use the custom permission
-
-    def post(self, request, format=None):
-        # Only administrators can access this view
         print(request.user)
-        print(request.data)
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response({'message': 'User Created', 'user_id': user.id}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return bool(request.user and request.user.is_authenticated and request.user.is_staff)
+
 
 class VerifyTokenView(APIView):
     permission_classes = (AllowAny,)
@@ -48,7 +37,6 @@ class VerifyTokenView(APIView):
             return Response({'valid': False, 'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Custom token serializer to include additional user information in the token
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -63,18 +51,19 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['picture'] = user.picture.url if user.picture else None
         return token
 
-# Custom view to obtain token pairs
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-# API view for user registration
 class UserRegister(APIView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = [IsAdminUser]
 
     def post(self, request):
+
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
             if user:
                 return Response({"message": "User Created"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
