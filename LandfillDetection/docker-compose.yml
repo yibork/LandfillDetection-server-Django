@@ -12,6 +12,7 @@ services:
 
   web:
     build: .
+    image: yassine07/landfilldetection-server-django:latest
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8001"
     volumes:
       - .:/app

@@ -6,7 +6,7 @@ async def register_service():
         eureka_server="http://localhost:8761/",
         app_name="django",
         instance_port=8001,
-        instance_host="10.126.86.225",
+        instance_host="137.184.5.79",
     )
     await eureka_client.start()
 
