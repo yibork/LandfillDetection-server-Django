@@ -46,6 +46,27 @@ INSTALLED_APPS = [
     'drf_yasg',   
 ]
 
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 
 AUTH_USER_MODEL = 'users.User'  
 MIDDLEWARE = [
@@ -130,28 +151,28 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     #postgresql
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'Landfill_Detection',
-#         'USER': 'postgres',
-#         'PASSWORD': 'password',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 DATABASES = {
+    #postgresql
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydatabase',
-        'USER': 'myuser',
-        'PASSWORD': 'mypassword',
-        'HOST': 'db',
+        'NAME': 'Landfill_Detection',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mydatabase',
+#         'USER': 'myuser',
+#         'PASSWORD': 'mypassword',
+#         'HOST': 'db',
+#         'PORT': '5432',
+#     }
+# }
 ALLOWED_HOSTS = ['*']
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

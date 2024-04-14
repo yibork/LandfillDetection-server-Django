@@ -6,6 +6,7 @@ class Record(models.Model):
     lng = models.FloatField()
     status = models.CharField(max_length=50)
     locality = models.CharField(max_length=100)
+    model_version = models.CharField(max_length=100,default="v1")
 
     def __str__(self):
         return self.locality
