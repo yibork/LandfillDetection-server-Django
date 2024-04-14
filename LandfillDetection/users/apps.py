@@ -31,7 +31,7 @@ class UsersConfig(AppConfig):
                 eureka_server="http://yassine.fixi.website:8761/",
                 app_name="django",
                 instance_port=8001,
-                instance_host='146.190.14.232',
+                instance_host='137.184.73.66',
             )
             await UsersConfig.eureka_client.start()
         
