@@ -19,7 +19,10 @@ jobs:
           password: ${{ secrets.DIGITALOCEAN_DROPLET_PASSWORD }}
           script: |
             cd LandfillDetection-server-Django
+            echo "Stashing any local changes..."
+            git stash --include-untracked
             echo "Pulling latest changes"
+
             git pull
             chmod +rwx ./scripts/deploy.sh
             ./scripts/deploy.sh
