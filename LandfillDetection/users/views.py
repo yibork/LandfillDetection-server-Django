@@ -66,4 +66,8 @@ class UserRegister(APIView):
                 return Response({"message": "User Created"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class TestView(APIView):
+
+    def get(self, request):
+        return Response({"message": "You are authenticated"}, status=status.HTTP_200_OK)
 
