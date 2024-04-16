@@ -18,7 +18,7 @@ jobs:
           username: ${{ secrets.DIGITALOCEAN_DROPLET_USERNAME }}
           password: ${{ secrets.DIGITALOCEAN_DROPLET_PASSWORD }}
           script: |
-            cd Municipality_Fleet_Management
+            cd LANDFILL_DETECTION-SERVER-DJANGO
             echo "Pulling latest API changes"
             git pull
             chmod +rwx ./scripts/deploy.sh
