@@ -67,6 +67,8 @@ class UserRegister(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TestView(APIView):
+    queryset = User.objects.all()
+
     def get(self, request):
         return Response({"message": "hello yassine"}, status=status.HTTP_200_OK)
 
