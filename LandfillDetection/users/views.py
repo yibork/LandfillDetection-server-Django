@@ -70,5 +70,5 @@ class TestView(APIView):
     queryset = User.objects.all()
 
     def get(self, request):
-        return Response({"message": "hello yassine 12"}, status=status.HTTP_200_OK)
+        return Response({"message": "hello yassine 4343"}, status=status.HTTP_200_OK)
 
